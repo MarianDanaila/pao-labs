@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         // Ex1
         int n = scanner.nextInt();
         System.out.println("Numerele pare: ");
@@ -32,7 +33,7 @@ public class Main {
         int fact = 1;
         for (int i = 2; i <= n; i++) { // inmultim toate numerele de la [2:n] pentru a afla factorialul
             fact *= i;
-        };
+        }
         System.out.println("Factorialul lui n este: " + fact);
         // Ex4
         n = scanner.nextInt();
@@ -77,25 +78,37 @@ public class Main {
         n = scanner.nextInt();
         int note[] = new int[n];
         int count = 0, totalSum = 0, nota;
+        boolean found = false;
         for (int i = 0; i < n; i++) { // citesc notele in vector
             nota = scanner.nextInt();
-            if (nota == -1){
-                System.out.println("Media este: " + totalSum/count); // afisam media atunci cand citim valoarea -1
+            if (nota == -1) {
+                if (i == 0) {
+                    System.out.println("Nu se poate afisa media deoarece nu avem nicio nota");
+                    found = true;
+                    break;
+                }
+                System.out.println("Media este: " + totalSum / count); // afisam media atunci cand citim valoarea -1
+                found = true;
                 break;
             }
             note[i] = nota;
             count++; // numaram numarul de note
             totalSum += nota; // adunam notele
         }
+        if (!found){
+            System.out.println("Media este: " + totalSum/count); // afisam media chiar daca nu am citit -1
+        }
+
+
         // Ex7
         n = scanner.nextInt();
         if (n == 1) { // daca n este primul numar din serie
-            System.out.println(0);
+            System.out.println("Primul numar din seria Fibonacci: " + 0);
         }
         else if (n == 2){ // daca n este al doilea numar din serie
-            System.out.println(1);
+            System.out.println("Al doilea numar din seria Fibonacci: " + 1);
         } else {
-            int f1 = 0, f2 = 1, counter = 2, temp; // f2 va fi al n-lea numar
+            int f1 = 0, f2 = 1, counter = 3, temp; // f2 va fi al n-lea numar
             while (counter <= n){
                 temp = f2;
                 f2 += f1;
