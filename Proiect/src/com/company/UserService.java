@@ -1,9 +1,71 @@
 package com.company;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class UserService {
     private ArrayList<User> users;
+    public ArrayList<User> readCSV(String path){
+        String line = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            line = br.readLine();
+            while((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                User user = new User(values[0],values[1],values[2],Integer.parseInt(values[3]));
+                System.out.println(user);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
+    public void writeCSV(String path){
+        File file = new File(path);
+        boolean header=false;
+        boolean result;
+        try{
+            result = file.createNewFile();
+            if(result)      // test if successfully created a new file
+            {
+                System.out.println("file created "+file.getCanonicalPath()); //returns the path string
+                header = true;
+            }
+            else
+            {
+                System.out.println("File already exist at location: "+file.getCanonicalPath());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            FileWriter csvWriter = new FileWriter(file,true);
+            if (header){
+                csvWriter.append("FirstName,MiddleName,LastName,age");
+                csvWriter.append("\n");
+            }
+
+
+            for (User u :
+                    users) {
+                csvWriter.append(u.firstName);
+                csvWriter.append(",");
+                csvWriter.append(u.middleName);
+                csvWriter.append(",");
+                csvWriter.append(u.lastName);
+                csvWriter.append(",");
+                csvWriter.append(String.valueOf(u.age));
+                csvWriter.append("\n");
+            }
+            csvWriter.flush();
+            csvWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public UserService() {
         this.users = new ArrayList<User>();

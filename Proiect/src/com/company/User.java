@@ -2,6 +2,8 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class User extends Human {
     Random rand = new Random(); // to generate random id;
@@ -13,6 +15,18 @@ public class User extends Human {
         super(firstName, middleName, lastName, age);
         this.userAddress = userAddress;
         this.orders = new ArrayList<Order>();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        AuditService audit = new AuditService();
+        audit.writeCSV("new Instance of User",formatter.format(date));
+    }
+
+    public User(String firstName, String middleName, String lastName, int age) {
+        super(firstName, middleName, lastName, age);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        AuditService audit = new AuditService();
+        audit.writeCSV("new Instance of User",formatter.format(date));
     }
 
     public int getUserId() {
