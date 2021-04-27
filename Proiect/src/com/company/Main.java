@@ -47,8 +47,6 @@ public class Main {
         ds.addDriver(driver1);
         ds.addDriver(driver2);
         ds.displayDrivers();
-        ds.removeDriver(driver1);
-        ds.displayDrivers();
 
 
         Review review1 = new Review(user1.getUserId(), rest2.getRestaurantId(), 3, "Disgusting food");

@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Random;
 
-public class Driver extends Human {
+public class Driver extends Human implements Comparable<Driver> {
     Random rand = new Random(); // to generate random id;
     private final int driverId = rand.nextInt(1000);
     private boolean availability;
@@ -22,6 +22,15 @@ public class Driver extends Human {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    @Override
+    public int compareTo(Driver d) {
+        int res = this.getLastName().compareTo(d.getLastName());
+        if(res == 0){
+            return this.getFirstName().compareTo(d.getFirstName());
+        }
+        return res;
     }
 
     @Override
