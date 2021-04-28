@@ -2,6 +2,8 @@ package com.company;
 
 import java.util.Random;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Menu {
     Random rand = new Random(); // to generate random id;
@@ -12,6 +14,10 @@ public class Menu {
     public Menu(String menuName) {
         this.products = new ArrayList<Product>();
         this.menuName = menuName;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        AuditService audit = new AuditService();
+        audit.writeCSV("new Instance of Menu",formatter.format(date));
     }
 
     public int getMenuId() {
@@ -36,8 +42,6 @@ public class Menu {
 
     @Override
     public String toString() {
-        return "Menu{" +
-                "menuName='" + menuName + '\'' +
-                '}';
+        return menuName;
     }
 }

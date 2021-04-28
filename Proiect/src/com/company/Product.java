@@ -35,7 +35,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "\n" + name +
-                " with price = " + price;
+        return name + " with price = " + price;
     }
 }

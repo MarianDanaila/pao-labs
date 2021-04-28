@@ -2,6 +2,8 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Restaurant {
     Random rand = new Random(); // to generate random id;
@@ -16,6 +18,10 @@ public class Restaurant {
         this.address = address;
         this.menus = new ArrayList<Menu>();
         this.reviews = new ArrayList<Review>();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        AuditService audit = new AuditService();
+        audit.writeCSV("new Instance of Restaurant",formatter.format(date));
     }
 
     public int getRestaurantId() { return restaurantId; }

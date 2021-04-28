@@ -15,6 +15,11 @@ public class Review {
         this.comment = comment;
     }
 
+    public Review(int rating, String comment) {
+        this.rating = rating;
+        this.comment = comment;
+    }
+
     public int getUserId() {
         return userId;
     }
@@ -49,6 +54,6 @@ public class Review {
 
     @Override
     public String toString() {
-        return "Review: " + "rating: " + rating + "/10" + ", comment='" + comment + "'";
+        return "rating: " + rating + "/10" + " comment='" + comment + "'";
     }
 }

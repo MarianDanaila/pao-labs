@@ -6,13 +6,15 @@ import java.util.ArrayList;
 public class UserService {
     private ArrayList<User> users;
     public ArrayList<User> readCSV(String path){
-        String line = "";
+        String line;
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             line = br.readLine();
             while((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                User user = new User(values[0],values[1],values[2],Integer.parseInt(values[3]));
+                String[] addr = values[4].split(" ");
+                Address address = new Address(addr[0], addr[1], addr[2], Integer.parseInt(addr[3]));
+                User user = new User(values[0],values[1],values[2],Integer.parseInt(values[3]), address);
                 System.out.println(user);
             }
         } catch (IOException e) {
@@ -43,20 +45,22 @@ public class UserService {
         try{
             FileWriter csvWriter = new FileWriter(file,true);
             if (header){
-                csvWriter.append("FirstName,MiddleName,LastName,age");
+                csvWriter.append("FirstName,MiddleName,LastName,Age,Address");
                 csvWriter.append("\n");
             }
 
 
             for (User u :
                     users) {
-                csvWriter.append(u.firstName);
+                csvWriter.append(u.getFirstName());
                 csvWriter.append(",");
-                csvWriter.append(u.middleName);
+                csvWriter.append(u.getMiddleName());
                 csvWriter.append(",");
-                csvWriter.append(u.lastName);
+                csvWriter.append(u.getLastName());
                 csvWriter.append(",");
-                csvWriter.append(String.valueOf(u.age));
+                csvWriter.append(String.valueOf(u.getAge()));
+                csvWriter.append(",");
+                csvWriter.append(u.getUserAddress().toString());
                 csvWriter.append("\n");
             }
             csvWriter.flush();
@@ -68,7 +72,7 @@ public class UserService {
     }
 
     public UserService() {
-        this.users = new ArrayList<User>();
+        this.users = new ArrayList<>();
     }
 
     public void addUser(User user) {
